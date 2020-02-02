@@ -89,6 +89,26 @@ def main():
     imfm2 = cv2.medianBlur(img, 5)
     imfm3 = cv2.medianBlur(img, 7)
 
+    #Laplacian filter
+
+    Wl1 = np.array([\
+        (0, -1, 0),\
+        (-1, 4, -1),\
+        (0, -1, 0)]\
+        ,dtype = float)
+
+
+    Wl2 = np.array([\
+        (-1, -1, -1),\
+        (-1, 8, -1),\
+        (-1, -1, -1)]\
+        ,dtype = float)
+
+    imfl1 = cv2.filter2D(img, cv2.CV_32F, Wl1)
+    imfl2 = cv2.filter2D(img, cv2.CV_32F, Wl2)
+
+    imfl3 = cv2.Laplacian(img, cv2.CV_32F, ksize = 3)
+
     ## Display  
     # image
     
@@ -99,15 +119,15 @@ def main():
     plt.title('Input image')   
 
     plt.subplot(222) 
-    plt.imshow(imfm1, 'gray', vmin=0, vmax=255)
+    plt.imshow(imfl1, 'gray', vmin=0, vmax=255)
     plt.title('Contour x')
 
     plt.subplot(223) 
-    plt.imshow(imfm2 , 'gray', vmin=0, vmax=255)
+    plt.imshow(imfl2 , 'gray', vmin=0, vmax=255)
     plt.title('Contour y')
 
     plt.subplot(224) 
-    plt.imshow(imfm3 , 'gray', vmin=0, vmax=255)
+    plt.imshow(imfl3 , 'gray', vmin=0, vmax=255)
     plt.title('COntour x et y')
 
     plt.show()
